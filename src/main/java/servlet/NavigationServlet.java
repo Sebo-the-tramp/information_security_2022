@@ -127,18 +127,17 @@ public class NavigationServlet extends HttpServlet {
 				+ "ORDER BY t DESC"
 			);
 			
-			StringBuilder output = new StringBuilder();
+			StringBuilder output = new StringBuilder();			
 			
-			output.append("<div style=\"white-space: pre-wrap;\"><span style=\"color:grey;\">");
-			
+			output.append("<div style=\"white-space: pre-wrap;\"><span style=\"color:grey;\">");			
 			output.append("<form id=\"submitForm\" class=\"form-resize\" action=\"NavigationServlet\" method=\"post\">\r\n");
 			output.append("<input type=\"hidden\" name=\"email\" value=\""+email+"\">\r\n");
 			output.append("<input type=\"hidden\" name=\"password\" value=\""+pwd+"\">\r\n");
 			output.append("<input class=\"single-row-input\" name=\"search\" placeholder=\"Search\" required>\r\n");
 			output.append("<input type=\"submit\" name=\"search\" value=\"Search\">\r\n");
-			output.append("</form>");		
-			output.append("</div>\r\n");											
+			output.append("</form>");			
 			output.append("<hr style=\"border-top: 2px solid black;\">\r\n");
+			
 			
 			while (sqlRes.next()) {
 				output.append("<div style=\"white-space: pre-wrap;\"><span style=\"color:grey;\">");
@@ -170,9 +169,10 @@ public class NavigationServlet extends HttpServlet {
 			
 			StringBuilder output = new StringBuilder();					
 
-			output.append("<p>Results for search: " + param + "</p>");
+			output.append("<div style=\"white-space: pre-wrap;\"><span style=\"color:grey;\">");
+			output.append("<p>Results for search: " + param + "</p>");	
+			output.append("<hr style=\"border-top: 2px solid black;\">\r\n");
 			
-			output.append("<div>\r\n");	
 			
 			while (sqlRes.next()) {
 				output.append("<div style=\"white-space: pre-wrap;\"><span style=\"color:grey;\">");

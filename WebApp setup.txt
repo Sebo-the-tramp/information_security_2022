@@ -26,12 +26,6 @@ IF YOU WANT TO CREATE A NEW PROJECT
 3) Right click on the newly created project -> Build path -> Configure build path...
 4) Go to Libraries -> Click on classpath -> Add External Jars... -> Add the file "servlet-api.jar" from lib directory inside the Apache Tomcat folder
 
-IF YOU WANT TO IMPORT IT FROM GITHUB
-1) Download the project from GitHub link "https://github.com/francxx96/ExamProject"
-2) Import it with Eclipse
-3) Right click on the project -> Build path -> Configure build path...
-4) Go to Libraries -> Click on classpath -> Add External Jars... -> Add the file "servlet-api.jar" from lib directory inside the Apache Tomcat folder
-
 --- You're ready now to build your Web Application using Java and Tomcat! ---
 
 By using Eclipse you can...
