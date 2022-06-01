@@ -21,10 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SendMailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String USER = "sa";
-	private static final String PWD = "Riva96_shared_db";
-	private static final String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=examDB;encrypt=true;trustServerCertificate=true;";
+	private static final String USER = "root";
+	private static final String PWD = "MyN3wP4ssw0rd";
+	private static final String DRIVER_CLASS = "org.mariadb.jdbc.Driver";
+	private static final String DB_URL = "jdbc:mariadb://localhost:3306/examDB?encrypt=true;trustServerCertificate=true;";
     
 	private static Connection conn;
        
@@ -60,12 +60,12 @@ public class SendMailServlet extends HttpServlet {
 		String receiver = request.getParameter("receiver").replace("'", "''");;
 		String subject = request.getParameter("subject").replace("'", "''");;
 		String body = request.getParameter("body").replace("'", "''");;
-		String timestamp = new Date(System.currentTimeMillis()).toInstant().toString();
+		long timestamp = new Date(System.currentTimeMillis()).getTime()/1000;
 		
 		try (Statement st = conn.createStatement()) {
 			st.execute(
-				"INSERT INTO mail ( sender, receiver, subject, body, [time] ) "
-				+ "VALUES ( '" + sender + "', '" + receiver + "', '" + subject + "', '" + body + "', '" + timestamp + "' )"
+				"INSERT INTO mail ( sender, receiver, subject, body, t ) "
+				+ "VALUES ( '" + sender + "', '" + receiver + "', '" + subject + "', '" + body + "',FROM_UNIXTIME(" + timestamp + "))"
 			);
 			
 		} catch (SQLException e) {

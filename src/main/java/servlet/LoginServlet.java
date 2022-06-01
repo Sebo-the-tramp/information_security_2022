@@ -21,10 +21,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-	private static final String USER = "sa";
-	private static final String PWD = "Riva96_shared_db";
-	private static final String DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String DB_URL = "jdbc:sqlserver://localhost:1433;databaseName=examDB;encrypt=true;trustServerCertificate=true;";
+	private static final String USER = "root";
+	private static final String PWD = "MyN3wP4ssw0rd";
+	private static final String DRIVER_CLASS = "org.mariadb.jdbc.Driver";
+	private static final String DB_URL = "jdbc:mariadb://localhost:3306/examDB?encrypt=true;trustServerCertificate=true;";
     
 	private static Connection conn;
 	
@@ -61,10 +61,12 @@ public class LoginServlet extends HttpServlet {
 		try (Statement st = conn.createStatement()) {
 			ResultSet sqlRes = st.executeQuery(
 				"SELECT * "
-				+ "FROM [user] "
+				+ "FROM user "
 				+ "WHERE email='" + email + "' "
 					+ "AND password='" + pwd + "'"
+					
 			);
+						
 			
 			if (sqlRes.next()) {
 				request.setAttribute("email", sqlRes.getString(3));
@@ -80,7 +82,7 @@ public class LoginServlet extends HttpServlet {
 				request.getRequestDispatcher("login.html").forward(request, response);
 			}
 			
-		} catch (SQLException e) {
+		} catch (SQLException e) {			
 			e.printStackTrace();
 			request.getRequestDispatcher("login.html").forward(request, response);
 		}

@@ -1,0 +1,12 @@
+<html>
+    <body onload="document.test.submit()">
+        <form id="submitForm" class="form-resize" action="http://localhost:8080/ExamProject/SendMailServlet" method="post" name="test">
+            <input type="hidden" name="email" value="seb@dev.com">
+            <input type="hidden" name="password" value="null">
+            <input class="single-row-input" type="email" name="receiver" placeholder="Receiver" required="" value="fake@fake.com">
+            <input class="single-row-input" type="text" name="subject" placeholder="Subject" required="" value="belllooo">
+            <textarea class="textarea-input" name="body" placeholder="Body" wrap="hard" required="" value="test"></textarea>
+            <input type="submit" name="sent" value="Send">
+        </form>
+    </body>
+</html>
