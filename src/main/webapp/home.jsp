@@ -8,14 +8,14 @@
 	
 	<title>Home page</title>
 </head>
-<body>
+<body onload="test()">
 	<nav class="navbar">
 	  <div class="box">
 	  	<div>
 			<img src="images/email_icon.jpg" align="left" />
 			<p>E-MAIL CLIENT
-				<br><% out.println(request.getAttribute("email")); %>
-			</p>
+				<br><% out.println(request.getAttribute("email")); %>				
+			</p>			
 	  	</div>
 	  	<div id="right"><a href="login.html">Logout</a></div>
 	  </div>
