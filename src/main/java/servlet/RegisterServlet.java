@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import utils.RSAKeyPair;
+import utils.Generics;
 import utils.RSAConstants;
 import utils.RSAEncryptDecrypt;
 
@@ -73,8 +74,7 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email").replace("'", "''");;
 		String pwd = request.getParameter("password").replace("'", "''");;
 				
-		//if(!name.matches("[\\w*\\s*]*") || !surname.matches("[\\w*\\s*]*")) {
-		if(true) {
+		if(name.matches("[\\w*\\s*]*") && surname.matches("[\\w*\\s*]*")) {		
 			System.out.println("ha");
 			
 			try (Statement st = conn.createStatement()) {
@@ -103,7 +103,7 @@ public class RegisterServlet extends HttpServlet {
 					
 					// DOWNLOAD PRIVATE KEY			 
 					
-					try(InputStream in = new ByteArrayInputStream(("PRIVATE KEY: " + toHex(privateKey.getEncoded())).getBytes());
+					try(InputStream in = new ByteArrayInputStream(("PRIVATE KEY: " + Generics.toHex(privateKey.getEncoded())).getBytes());
 				          OutputStream out = response.getOutputStream()) {
 
 				            byte[] buffer = new byte[1024];
@@ -116,7 +116,7 @@ public class RegisterServlet extends HttpServlet {
 					
 					st.execute(
 						"INSERT INTO user ( name, surname, email, password, public_key ) "
-						+ "VALUES ( '" + name + "', '" + surname + "', '" + email + "', '" + hashedPassword + "', '" + toHex(publicKey.getEncoded()) + "' )"
+						+ "VALUES ( '" + name + "', '" + surname + "', '" + email + "', '" + hashedPassword + "', '" + Generics.toHex(publicKey.getEncoded()) + "' )"
 					);
 					
 					request.setAttribute("email", email);
@@ -131,6 +131,8 @@ public class RegisterServlet extends HttpServlet {
 				e.printStackTrace();
 				request.getRequestDispatcher("register.html").forward(request, response);
 			}
+		}else {
+			System.out.println("Registration NOT succesful");
 		}
 	}	
 	
@@ -184,18 +186,5 @@ public class RegisterServlet extends HttpServlet {
 
         // return salt
         return salt.toString();
-    }
-    
-    private String toHex(byte[] word) {
-    	
-    	StringBuilder sb = new StringBuilder();
-    	
-    	for (int i = 0; i < word.length; i++) {
-        	sb.append(Integer.toString((word[i] & 0xff) + 0x100, 16)
-                    .substring(1));
-        }
-    	
-    	return sb.toString();
-    }
-
+    }    
 }

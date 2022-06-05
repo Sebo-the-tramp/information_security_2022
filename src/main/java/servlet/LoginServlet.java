@@ -18,6 +18,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.Generics;
 
 /**
  * Servlet implementation class HelloWorldServlet
@@ -83,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 			MessageDigest md;
 			try {
 				md = MessageDigest.getInstance("SHA-256");
-				md.update(fromHex(saltString));
+				md.update(Generics.fromHex(saltString));
 				byte[] hashedPassword = md.digest(pwd.getBytes());
 				
 				StringBuilder sb = new StringBuilder();	            	           
@@ -125,12 +126,4 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 	
-	private byte[] fromHex(String word) {
-		
-		byte[] binary = new byte[word.length()/2];
-		for(int i = 0; i < binary.length; i++) {
-			binary[i] = (byte) Integer.parseInt(word.substring(2*i, 2*i +2), 16);
-		}
-		return binary;
-	}
 }
